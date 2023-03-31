@@ -1,4 +1,4 @@
-import { Routes, Route, Outlet, NavLink, Link } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import Home from 'pages/Home';
 import Movies from 'pages/Movies';
 import Cast from './Cast';
