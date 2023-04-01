@@ -1,5 +1,15 @@
+import { useEffect } from 'react';
+
 const Home = () => {
-  return <>Home</>;
+  useEffect(() => {
+    // Запит на перелік популярних фільмів
+  }, []);
+
+  return (
+    <>
+      <h2>Home</h2>
+    </>
+  );
 };
 
 export default Home;

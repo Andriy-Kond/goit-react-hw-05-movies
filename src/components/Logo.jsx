@@ -1,1 +1,3 @@
-export const Logo = () => {};
+export const Logo = ({ children }) => {
+  return <>{children}</>;
+};

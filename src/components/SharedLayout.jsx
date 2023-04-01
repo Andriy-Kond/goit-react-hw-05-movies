@@ -1,9 +1,11 @@
-import { NavLink, Outlet } from 'react-router-dom';
+import { Link, NavLink, Outlet } from 'react-router-dom';
 import { Container } from './Container';
 import { Header } from './Header';
 import { Logo } from './Logo';
 
 import styled from 'styled-components';
+import Footer from './Footer';
+import { Suspense } from 'react';
 
 const StyledNavLink = styled(NavLink)`
   color: black;
@@ -21,7 +23,7 @@ const SharedLayout = () => {
           <span role="img" aria-label="computer icon">
             💻
           </span>
-          All Movies
+          <h1>All Movies</h1>
         </Logo>
 
         <ul>
@@ -32,9 +34,13 @@ const SharedLayout = () => {
             <StyledNavLink to="/movies">Movies</StyledNavLink>
           </li>
         </ul>
-
-        <Outlet />
       </Header>
+      <main>
+        <Suspense fallback={<div>Loading...</div>}>
+          <Outlet />
+        </Suspense>
+      </main>
+      <Footer></Footer>
     </Container>
   );
 };
