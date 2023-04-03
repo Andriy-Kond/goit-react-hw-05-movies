@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { getQuery } from 'services/fetch';
 
 import defaultImg from '../images/noUser.jpg';
-console.log('defaultImg:', defaultImg);
+// console.log('defaultImg:', defaultImg);
 
 const { useParams, Link } = require('react-router-dom');
 
@@ -17,7 +17,7 @@ const Reviews = () => {
   const { currentMovie } = useParams();
   const URL_QUERY_OPTIONS = `movie/${currentMovie}/reviews`;
   const [currentMovieReviews, setCurrentMovieReviews] = useState([]);
-  console.log('Reviews >> currentMovieReviews:', currentMovieReviews);
+  // console.log('Reviews >> currentMovieReviews:', currentMovieReviews);
 
   useEffect(() => {
     getQuery(URL_QUERY_OPTIONS)

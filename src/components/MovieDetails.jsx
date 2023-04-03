@@ -41,53 +41,54 @@ const MovieDetails = () => {
     );
   }
 
+  // Щоб не блимало спочатку заглушка-зображення роблю перевірку чи є об'єкт пустий
   return (
     <>
-      <div>
-        <h1>Movie Details of "{currentMovieResp.original_title}"</h1>
-        <Link to={backLinkLocationRef.current}>
-          <p>Повернутись назад</p>
-        </Link>
+      {Object.keys(currentMovieResp).length !== 0 && (
+        <div>
+          <h1>Movie Details of "{currentMovieResp.original_title}"</h1>
+          <Link to={backLinkLocationRef.current}>
+            <p>Повернутись назад</p>
+          </Link>
 
-        <div className="card" style={{ width: '18rem' }}>
-          <img
-            src={
-              currentMovieResp.backdrop_path
-                ? `https://image.tmdb.org/t/p/w500${currentMovieResp.backdrop_path}`
-                : defaultImg
-            }
-            className="card-img-top"
-            alt="..."
-            style={{
-              minHeight: '200px',
-
-              height: '100%',
-              width: '100%',
-            }}
-          />
-          <div className="card-body">
-            <h5 className="card-title">{currentMovieResp.original_title}</h5>
-            <p className="card-text">{currentMovieResp.overview}</p>
-            <Link
-              to={currentMovieResp.homepage ? currentMovieResp.homepage : '*'}
-              className="btn btn-primary"
-              target="_blank"
-              rel="noreferrer"
-            >
-              Go to movie page
-            </Link>
+          <div className="card" style={{ width: '18rem' }}>
+            <img
+              src={
+                currentMovieResp.poster_path
+                  ? `https://image.tmdb.org/t/p/w500${currentMovieResp.poster_path}`
+                  : defaultImg
+              }
+              className="card-img-top"
+              alt="..."
+              style={{
+                height: '100%',
+                width: '100%',
+              }}
+            />
+            <div className="card-body">
+              <h5 className="card-title">{currentMovieResp.original_title}</h5>
+              <p className="card-text">{currentMovieResp.overview}</p>
+              <Link
+                to={currentMovieResp.homepage ? currentMovieResp.homepage : '*'}
+                className="btn btn-primary"
+                target="_blank"
+                rel="noreferrer"
+              >
+                Go to movie page
+              </Link>
+            </div>
           </div>
-        </div>
 
-        <ul>
-          <li>
-            <Link to="cast">to Cast the movie</Link>
-          </li>
-          <li>
-            <Link to="reviews">to Review the movie</Link>
-          </li>
-        </ul>
-      </div>
+          <ul>
+            <li>
+              <Link to="cast">to Cast the movie</Link>
+            </li>
+            <li>
+              <Link to="reviews">to Review the movie</Link>
+            </li>
+          </ul>
+        </div>
+      )}
       <Suspense
         fallback={
           <div className="spinner-grow" role="status">
