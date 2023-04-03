@@ -1,3 +1,7 @@
 export const Container = ({ children }) => {
-  return <>{children}</>;
+  return (
+    <>
+      <div className="container">{children}</div>
+    </>
+  );
 };
