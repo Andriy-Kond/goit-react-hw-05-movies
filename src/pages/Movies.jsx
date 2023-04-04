@@ -10,7 +10,7 @@ const Movies = () => {
   const [status, setStatus] = useState('');
 
   // Стейт параметрів адресного рядку
-  const [searchParams, setSearchParams] = useSearchParams({}); //?Масив чи пустий рядок?
+  const [searchParams, setSearchParams] = useSearchParams({}); //? Об'єкт чи пустий рядок?
 
   // Стейт для фільтру Input
   const movieName = searchParams.get('query') ?? ''; // для запису у input.value
@@ -28,7 +28,7 @@ const Movies = () => {
         setError(error);
         setStatus('rejected');
       });
-  }, [URL_QUERY_OPTIONS, movieName]);
+  }, [URL_QUERY_OPTIONS, searchParams]);
 
   // Для кнопки повернення з дочірніх елементів
   const location = useLocation();
