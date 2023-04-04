@@ -41,7 +41,7 @@ const Movies = () => {
   };
 
   if (status === 'rejected') {
-    return <h1>{`Помилка: ${error.message}`}</h1>;
+    return <h2>{`Помилка: ${error.message}`}</h2>;
   }
 
   return (

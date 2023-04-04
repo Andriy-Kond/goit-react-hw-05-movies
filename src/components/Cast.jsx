@@ -29,7 +29,7 @@ const Cast = () => {
   }, [URL_QUERY_OPTIONS]);
 
   if (status === 'rejected') {
-    return <h1>{`Помилка: ${error.message}`}</h1>;
+    return <h2>{`Помилка: ${error.message}`}</h2>;
   }
 
   return (

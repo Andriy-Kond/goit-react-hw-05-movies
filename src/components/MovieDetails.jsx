@@ -31,9 +31,10 @@ const MovieDetails = () => {
   }, [URL_QUERY_OPTIONS]);
 
   if (status === 'rejected') {
+    console.log(error.message);
     return (
       <>
-        <h1>{`Помилка: ${error.message}`}</h1>
+        <h2>{`Помилка: ${error.message}`}</h2>
         <Link to={backLinkLocationRef.current}>
           <p>Повернутись назад</p>
         </Link>

@@ -9,10 +9,13 @@ export const getQuery = (URL_QUERY_OPTIONS, searchOptions = '') => {
     `${ULR_BASE_POINT}/${URL_QUERY_OPTIONS}?api_key=${API_KEY}&${searchOptions}`
   ).then(response => {
     // Якщо відповідь від сервера - 4XX, то роблю новий об'єкт помилки з необхідним повідомленням:
-    if (!response.ok)
+    if (!response.ok) {
+      console.log(response);
       throw new Error(
-        `Якась помилка на сервері або не правильний шлях. Або спробуйте пізніше або оновіть сторінку, або введіть інший шлях`
+        `Якась помилка на сервері або не правильний шлях.
+        Код помилки: ${response.status}.`
       );
+    }
 
     return response.json();
   });
