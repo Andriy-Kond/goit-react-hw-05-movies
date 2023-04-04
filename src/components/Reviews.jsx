@@ -118,7 +118,12 @@ const Reviews = () => {
                           >{`${review.content.slice(0, 300)}...`}</p>
                         </h5>
 
-                        <Link to={`${review.url}`} className="btn btn-primary">
+                        <Link
+                          to={`${review.url}`}
+                          className="btn btn-primary"
+                          target="_blank"
+                          rel="noreferrer"
+                        >
                           Read more
                         </Link>
                       </div>
