@@ -45,10 +45,10 @@ const Home = () => {
       </h2>
 
       {popMovies.length !== 0 &&
-        popMovies.map(movie => {
+        popMovies.map(({ id, title }) => {
           return (
-            <Link key={movie.id} to={`movies/${movie.id}`} state={location}>
-              <p>{movie.title}</p>
+            <Link key={id} to={`movies/${id}`} state={location}>
+              <p>{title}</p>
             </Link>
           );
         })}

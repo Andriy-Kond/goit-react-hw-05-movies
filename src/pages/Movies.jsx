@@ -12,7 +12,7 @@ const Movies = () => {
   // Стейт параметрів адресного рядку
   const [searchParams, setSearchParams] = useSearchParams({}); //? Об'єкт чи пустий рядок?
 
-  // Стейт для фільтру Input
+  // Стейти для фільтру Input
   const movieName = searchParams.get('query') ?? ''; // для запису у input.value
   const URL_QUERY_OPTIONS = `search/movie`; // рядок запиту згідно з API
   const [foundMovies, setFoundMovies] = useState([]); // масив знайдених фільмів
@@ -65,101 +65,110 @@ const Movies = () => {
 
       {foundMovies.length !== 0 && (
         <div className="accordion" id="accordionExample">
-          {foundMovies.map(movie => {
-            return (
-              <div key={movie.id}>
-                <div className="accordion-item">
-                  <h2 className="accordion-header">
-                    <button
-                      className="accordion-button collapsed"
-                      type="button"
-                      data-bs-toggle="collapse"
-                      data-bs-target={`#collapseTwo-${movie.id}`}
-                      aria-expanded="false"
-                      aria-controls={`collapseTwo-${movie.id}`}
-                      style={{ fontSize: '1.2rem' }}
-                    >
-                      Movie title: &nbsp;
-                      <strong> {`${movie.title}`} </strong>
-                    </button>
-                  </h2>
-                  <div
-                    id={`collapseTwo-${movie.id}`}
-                    className="accordion-collapse collapse"
-                    data-bs-parent="#accordionExample"
-                  >
+          {foundMovies.map(
+            ({
+              id,
+              title,
+              poster_path,
+              release_date,
+              original_language,
+              vote_average,
+              vote_count,
+              overview,
+            }) => {
+              return (
+                <div key={id}>
+                  <div className="accordion-item">
+                    <h2 className="accordion-header">
+                      <button
+                        className="accordion-button collapsed"
+                        type="button"
+                        data-bs-toggle="collapse"
+                        data-bs-target={`#collapseTwo-${id}`}
+                        aria-expanded="false"
+                        aria-controls={`collapseTwo-${id}`}
+                        style={{ fontSize: '1.2rem' }}
+                      >
+                        Movie title: &nbsp;
+                        <strong> {`${title}`} </strong>
+                      </button>
+                    </h2>
                     <div
-                      className="accordion-body"
-                      style={{
-                        width: '100%',
-                        display: 'flex',
-                      }}
+                      id={`collapseTwo-${id}`}
+                      className="accordion-collapse collapse"
+                      data-bs-parent="#accordionExample"
                     >
-                      <img
-                        src={
-                          movie.poster_path
-                            ? `https://image.tmdb.org/t/p/w500${movie.poster_path}`
-                            : defaultImg
-                        }
-                        className="card-img-top"
-                        alt="..."
-                        style={{
-                          minWidth: '200px',
-                          maxWidth: '200px',
-                          height: '100%',
-                          marginRight: '20px',
-                        }}
-                      />
                       <div
+                        className="accordion-body"
                         style={{
+                          width: '100%',
                           display: 'flex',
-                          flexDirection: 'column',
                         }}
                       >
-                        <h4>
-                          <strong>Release date:</strong>
-                          <p style={{ margin: 0 }}>{movie.release_date}</p>
-                        </h4>
-
-                        <p style={{ marginBottom: '5px' }}>
-                          Original language:
-                          <strong>
-                            {movie.original_language.toUpperCase()}
-                          </strong>
-                        </p>
-
-                        <p>
-                          <strong>Rating:</strong> <br />
-                          <span>
-                            Average vote: <strong>{movie.vote_average}</strong>
-                          </span>
-                          <br />
-                          <span>
-                            Total votes: <strong> {movie.vote_count}</strong>
-                          </span>
-                        </p>
-
-                        <h5>
-                          <strong>Overview: </strong>
-                          <p style={{ fontSize: '1rem' }}>
-                            {movie.overview ? movie.overview : 'No review'}
-                          </p>
-                        </h5>
-
-                        <Link
-                          to={`${movie.id}`}
-                          className="btn btn-primary"
-                          state={location}
+                        <img
+                          src={
+                            poster_path
+                              ? `https://image.tmdb.org/t/p/w500${poster_path}`
+                              : defaultImg
+                          }
+                          className="card-img-top"
+                          alt="..."
+                          style={{
+                            minWidth: '200px',
+                            maxWidth: '200px',
+                            height: '100%',
+                            marginRight: '20px',
+                          }}
+                        />
+                        <div
+                          style={{
+                            display: 'flex',
+                            flexDirection: 'column',
+                          }}
                         >
-                          See more movie's details
-                        </Link>
+                          <h4>
+                            <strong>Release date:</strong>
+                            <p style={{ margin: 0 }}>{release_date}</p>
+                          </h4>
+
+                          <p style={{ marginBottom: '5px' }}>
+                            Original language:
+                            <strong>{original_language.toUpperCase()}</strong>
+                          </p>
+
+                          <p>
+                            <strong>Rating:</strong> <br />
+                            <span>
+                              Average vote: <strong>{vote_average}</strong>
+                            </span>
+                            <br />
+                            <span>
+                              Total votes: <strong> {vote_count}</strong>
+                            </span>
+                          </p>
+
+                          <h5>
+                            <strong>Overview: </strong>
+                            <p style={{ fontSize: '1rem' }}>
+                              {overview ? overview : 'No review'}
+                            </p>
+                          </h5>
+
+                          <Link
+                            to={`${id}`}
+                            className="btn btn-primary"
+                            state={location}
+                          >
+                            See more movie's details
+                          </Link>
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
-              </div>
-            );
-          })}
+              );
+            }
+          )}
         </div>
       )}
     </>

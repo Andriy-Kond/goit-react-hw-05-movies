@@ -10,7 +10,7 @@ export const getQuery = (URL_QUERY_OPTIONS, searchOptions = '') => {
   ).then(response => {
     // Якщо відповідь від сервера - 4XX, то роблю новий об'єкт помилки з необхідним повідомленням:
     if (!response.ok) {
-      console.log(response);
+      // console.log(response);
       throw new Error(
         `Якась помилка на сервері або не правильний шлях. 
         Код помилки: ${response.status}.`

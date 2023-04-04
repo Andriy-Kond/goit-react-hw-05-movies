@@ -41,13 +41,24 @@ const MovieDetails = () => {
       </>
     );
   }
-
+  const {
+    original_title,
+    poster_path,
+    overview,
+    release_date,
+    production_countries,
+    original_language,
+    runtime,
+    vote_average,
+    vote_count,
+    homepage,
+  } = currentMovieResp;
   // Щоб не блимало спочатку заглушка-зображення роблю перевірку чи є об'єкт пустий
   return (
     <>
       {Object.keys(currentMovieResp).length !== 0 && (
         <div>
-          <h1>Details of "{currentMovieResp.original_title}" movie</h1>
+          <h1>Details of "{original_title}" movie</h1>
           <Link to={backLinkLocationRef.current}>
             <p>Повернутись назад</p>
           </Link>
@@ -55,8 +66,8 @@ const MovieDetails = () => {
           <div className="card" style={{ width: '28rem' }}>
             <img
               src={
-                currentMovieResp.poster_path
-                  ? `https://image.tmdb.org/t/p/w500${currentMovieResp.poster_path}`
+                poster_path
+                  ? `https://image.tmdb.org/t/p/w500${poster_path}`
                   : defaultImg
               }
               className="card-img-top"
@@ -67,12 +78,8 @@ const MovieDetails = () => {
               }}
             />
             <div className="card-body">
-              <h5 className="card-title">{currentMovieResp.original_title}</h5>
-              <p>
-                {currentMovieResp.overview
-                  ? currentMovieResp.overview
-                  : 'No review'}
-              </p>
+              <h5 className="card-title">{original_title}</h5>
+              <p>{overview ? overview : 'No review'}</p>
 
               <div
                 style={{
@@ -82,40 +89,37 @@ const MovieDetails = () => {
               >
                 <h4>
                   <strong>Release date:</strong>
-                  <p style={{ margin: 0 }}>{currentMovieResp.release_date}</p>
+                  <p style={{ margin: 0 }}>{release_date}</p>
                 </h4>
 
                 <p style={{ marginBottom: '5px' }}>
                   Original country:{' '}
                   <strong>
-                    {currentMovieResp.production_countries[0].iso_3166_1.toUpperCase()}
+                    {production_countries[0].iso_3166_1.toUpperCase()}
                   </strong>
                 </p>
 
                 <p style={{ marginBottom: '5px' }}>
                   Original language:{' '}
-                  <strong>
-                    {currentMovieResp.original_language.toUpperCase()}
-                  </strong>
+                  <strong>{original_language.toUpperCase()}</strong>
                 </p>
                 <p style={{ marginBottom: '5px' }}>
-                  Runtime: <strong>{currentMovieResp.runtime}min</strong>
+                  Runtime: <strong>{runtime}min</strong>
                 </p>
                 <p>
                   <strong>Rating:</strong> <br />
                   <span>
-                    Average vote:{' '}
-                    <strong>{currentMovieResp.vote_average}</strong>
+                    Average vote: <strong>{vote_average}</strong>
                   </span>
                   <br />
                   <span>
-                    Total votes: <strong>{currentMovieResp.vote_count}</strong>
+                    Total votes: <strong>{vote_count}</strong>
                   </span>
                 </p>
               </div>
 
               <Link
-                to={currentMovieResp.homepage ? currentMovieResp.homepage : '*'}
+                to={homepage ? homepage : '*'}
                 className="btn btn-primary"
                 target="_blank"
                 rel="noreferrer"

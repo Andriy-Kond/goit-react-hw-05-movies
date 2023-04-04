@@ -41,98 +41,101 @@ const Reviews = () => {
 
       {currentMovieReviews.length !== 0 ? (
         <div className="accordion" id="accordionExample">
-          {currentMovieReviews.map(review => {
-            let currentSrc = review.author_details.avatar_path;
-            // console.log('currentSrc 1:', currentSrc);
+          {currentMovieReviews.map(
+            ({ author_details, id, author, content, url }) => {
+              let currentSrc = author_details.avatar_path;
+              // console.log('currentSrc 1:', currentSrc);
 
-            if (currentSrc) {
-              if (currentSrc.includes('www')) {
-                currentSrc = currentSrc
-                  .replace('/https://www.', 'https://')
-                  .trim();
+              if (currentSrc) {
+                if (currentSrc.includes('www')) {
+                  currentSrc = currentSrc
+                    .replace('/https://www.', 'https://')
+                    .trim();
+                } else {
+                  currentSrc = `https://image.tmdb.org/t/p/w500/${currentSrc}`;
+                }
               } else {
-                currentSrc = `https://image.tmdb.org/t/p/w500/${currentSrc}`;
+                currentSrc = defaultImg;
+                // currentSrc = 'images/noUser.jpg'; // ??? чомусь не завантажується такий шлях
               }
-            } else {
-              currentSrc = defaultImg;
-              // currentSrc = 'images/noUser.jpg'; // ??? чомусь не завантажується такий шлях
-            }
 
-            // console.log('currentSrc 2:', currentSrc);
+              // console.log('currentSrc 2:', currentSrc);
 
-            return (
-              <div key={review.id}>
-                <div className="accordion-item">
-                  <h2 className="accordion-header">
-                    <button
-                      className="accordion-button collapsed"
-                      type="button"
-                      data-bs-toggle="collapse"
-                      data-bs-target={`#collapseTwo-${review.id}`}
-                      aria-expanded="false"
-                      aria-controls={`collapseTwo-${review.id}`}
-                      style={{ fontSize: '1.2rem' }}
-                    >
-                      Review from: &nbsp;
-                      <strong> {`${review.author}`} </strong>
-                    </button>
-                  </h2>
-                  <div
-                    id={`collapseTwo-${review.id}`}
-                    className="accordion-collapse collapse"
-                    data-bs-parent="#accordionExample"
-                  >
+              return (
+                <div key={id}>
+                  <div className="accordion-item">
+                    <h2 className="accordion-header">
+                      <button
+                        className="accordion-button collapsed"
+                        type="button"
+                        data-bs-toggle="collapse"
+                        data-bs-target={`#collapseTwo-${id}`}
+                        aria-expanded="false"
+                        aria-controls={`collapseTwo-${id}`}
+                        style={{ fontSize: '1.2rem' }}
+                      >
+                        Review from: &nbsp;
+                        <strong> {`${author}`} </strong>
+                      </button>
+                    </h2>
                     <div
-                      className="accordion-body"
-                      style={{
-                        width: '100%',
-                        display: 'flex',
-                      }}
+                      id={`collapseTwo-${id}`}
+                      className="accordion-collapse collapse"
+                      data-bs-parent="#accordionExample"
                     >
-                      <img
-                        src={currentSrc}
-                        className="card-img-top"
-                        alt="..."
-                        style={{
-                          minWidth: '150px',
-                          maxWidth: '150px',
-                          height: '100%',
-                          marginRight: '20px',
-                        }}
-                      />
-
                       <div
+                        className="accordion-body"
                         style={{
+                          width: '100%',
                           display: 'flex',
-                          flexDirection: 'column',
                         }}
                       >
-                        <h4>
-                          <strong>Name: </strong>
-                          <p>{review.author_details.username}</p>
-                        </h4>
-                        <h5>
-                          <strong>Message: </strong>
-                          <p
-                            style={{ fontSize: '1rem' }}
-                          >{`${review.content.slice(0, 300)}...`}</p>
-                        </h5>
+                        <img
+                          src={currentSrc}
+                          className="card-img-top"
+                          alt="..."
+                          style={{
+                            minWidth: '150px',
+                            maxWidth: '150px',
+                            height: '100%',
+                            marginRight: '20px',
+                          }}
+                        />
 
-                        <Link
-                          to={`${review.url}`}
-                          className="btn btn-primary"
-                          target="_blank"
-                          rel="noreferrer"
+                        <div
+                          style={{
+                            display: 'flex',
+                            flexDirection: 'column',
+                          }}
                         >
-                          Read more
-                        </Link>
+                          <h4>
+                            <strong>Name: </strong>
+                            <p>{author_details.username}</p>
+                          </h4>
+                          <h5>
+                            <strong>Message: </strong>
+                            <p style={{ fontSize: '1rem' }}>{`${content.slice(
+                              0,
+                              300
+                            )}...`}</p>
+                          </h5>
+
+                          <Link
+                            to={`${url}`}
+                            className="btn btn-primary"
+                            target="_blank"
+                            rel="noreferrer"
+                          >
+                            Read more
+                          </Link>
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
-              </div>
-            );
-          })}
+              );
+            }
+          )}
         </div>
       ) : (
         'No any review yet'
