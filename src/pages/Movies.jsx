@@ -122,7 +122,7 @@ const Movies = () => {
                         </h4>
 
                         <p style={{ marginBottom: '5px' }}>
-                          Original language:{' '}
+                          Original language:
                           <strong>
                             {movie.original_language.toUpperCase()}
                           </strong>
@@ -130,8 +130,13 @@ const Movies = () => {
 
                         <p>
                           <strong>Rating:</strong> <br />
-                          <span>Average vote: {movie.vote_average}</span> <br />
-                          <span>Total votes: {movie.vote_count}</span>
+                          <span>
+                            Average vote: <strong>{movie.vote_average}</strong>
+                          </span>
+                          <br />
+                          <span>
+                            Total votes: <strong> {movie.vote_count}</strong>
+                          </span>
                         </p>
 
                         <h5>

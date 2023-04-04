@@ -104,10 +104,13 @@ const MovieDetails = () => {
                 <p>
                   <strong>Rating:</strong> <br />
                   <span>
-                    Average vote: {currentMovieResp.vote_average}
-                  </span>{' '}
+                    Average vote:{' '}
+                    <strong>{currentMovieResp.vote_average}</strong>
+                  </span>
                   <br />
-                  <span>Total votes: {currentMovieResp.vote_count}</span>
+                  <span>
+                    Total votes: <strong>{currentMovieResp.vote_count}</strong>
+                  </span>
                 </p>
               </div>
 
