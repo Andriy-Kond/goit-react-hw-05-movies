@@ -129,8 +129,8 @@ const Movies = () => {
                         </p>
 
                         <p>
-                          <strong>Rating:</strong>
-                          <span>Average vote: {movie.vote_average}</span>
+                          <strong>Rating:</strong> <br />
+                          <span>Average vote: {movie.vote_average}</span> <br />
                           <span>Total votes: {movie.vote_count}</span>
                         </p>
 

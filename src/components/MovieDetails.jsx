@@ -102,8 +102,11 @@ const MovieDetails = () => {
                   Runtime: <strong>{currentMovieResp.runtime}min</strong>
                 </p>
                 <p>
-                  <strong>Rating:</strong>
-                  <span>Average vote: {currentMovieResp.vote_average}</span>
+                  <strong>Rating:</strong> <br />
+                  <span>
+                    Average vote: {currentMovieResp.vote_average}
+                  </span>{' '}
+                  <br />
                   <span>Total votes: {currentMovieResp.vote_count}</span>
                 </p>
               </div>

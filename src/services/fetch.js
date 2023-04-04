@@ -12,7 +12,7 @@ export const getQuery = (URL_QUERY_OPTIONS, searchOptions = '') => {
     if (!response.ok) {
       console.log(response);
       throw new Error(
-        `Якась помилка на сервері або не правильний шлях.
+        `Якась помилка на сервері або не правильний шлях. 
         Код помилки: ${response.status}.`
       );
     }
