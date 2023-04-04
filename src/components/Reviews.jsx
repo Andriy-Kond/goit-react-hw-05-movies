@@ -37,7 +37,7 @@ const Reviews = () => {
 
   return (
     <>
-      {/* <div>THE REVIEWS</div> */}
+      <h3>THE REVIEWS</h3>
 
       {currentMovieReviews.length !== 0 ? (
         <div className="accordion" id="accordionExample">

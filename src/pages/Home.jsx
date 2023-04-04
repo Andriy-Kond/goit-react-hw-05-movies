@@ -35,7 +35,14 @@ const Home = () => {
 
   return (
     <>
-      <h2>Home</h2>
+      <h2
+        style={{
+          marginTop: '20px',
+          marginBottom: '20px',
+        }}
+      >
+        This is the Home Page
+      </h2>
 
       {popMovies.length !== 0 &&
         popMovies.map(movie => {

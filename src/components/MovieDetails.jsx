@@ -46,12 +46,12 @@ const MovieDetails = () => {
     <>
       {Object.keys(currentMovieResp).length !== 0 && (
         <div>
-          <h1>Movie Details of "{currentMovieResp.original_title}"</h1>
+          <h1>Details of "{currentMovieResp.original_title}" movie</h1>
           <Link to={backLinkLocationRef.current}>
             <p>Повернутись назад</p>
           </Link>
 
-          <div className="card" style={{ width: '18rem' }}>
+          <div className="card" style={{ width: '28rem' }}>
             <img
               src={
                 currentMovieResp.poster_path
@@ -67,14 +67,53 @@ const MovieDetails = () => {
             />
             <div className="card-body">
               <h5 className="card-title">{currentMovieResp.original_title}</h5>
-              <p className="card-text">{currentMovieResp.overview}</p>
+              <p>
+                {currentMovieResp.overview
+                  ? currentMovieResp.overview
+                  : 'No review'}
+              </p>
+
+              <div
+                style={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                }}
+              >
+                <h4>
+                  <strong>Release date:</strong>
+                  <p style={{ margin: 0 }}>{currentMovieResp.release_date}</p>
+                </h4>
+
+                <p style={{ marginBottom: '5px' }}>
+                  Original country:{' '}
+                  <strong>
+                    {currentMovieResp.production_countries[0].iso_3166_1.toUpperCase()}
+                  </strong>
+                </p>
+
+                <p style={{ marginBottom: '5px' }}>
+                  Original language:{' '}
+                  <strong>
+                    {currentMovieResp.original_language.toUpperCase()}
+                  </strong>
+                </p>
+                <p style={{ marginBottom: '5px' }}>
+                  Runtime: <strong>{currentMovieResp.runtime}min</strong>
+                </p>
+                <p>
+                  <strong>Rating:</strong>
+                  <span>Average vote: {currentMovieResp.vote_average}</span>
+                  <span>Total votes: {currentMovieResp.vote_count}</span>
+                </p>
+              </div>
+
               <Link
                 to={currentMovieResp.homepage ? currentMovieResp.homepage : '*'}
                 className="btn btn-primary"
                 target="_blank"
                 rel="noreferrer"
               >
-                Go to movie page
+                Go to the movie page
               </Link>
             </div>
           </div>

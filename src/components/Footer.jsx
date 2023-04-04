@@ -6,6 +6,7 @@ const Footer = () => {
           border: '1px solid black',
           padding: '5px',
           marginTop: '20px',
+          marginBottom: '40px',
         }}
       >
         <h4>Всі права захищені так шокапєць (c)</h4>

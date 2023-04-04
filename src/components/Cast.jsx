@@ -34,29 +34,46 @@ const Cast = () => {
 
   return (
     <>
-      {/* <div>THE CAST</divstyle=> */}
+      <h3>THE CAST</h3>
 
       {currentMovieCast.length !== 0 ? (
         <div className="accordion" id="accordionExample">
           {currentMovieCast.map(actor => {
             return (
-              <div key={actor.id}>
+              // Такий key та id в акордеоні довелось робити через те, що трапляються випадки, коли актор у фільмі записаний два рази (помилка у базі бекенду).
+              // А ще один актор може зніматись у декількох ролях і тоді його робі йдуть через косі лінії.
+              <div
+                key={`${actor.id}-${actor.character
+                  .toLowerCase()
+                  .toLowerCase()
+                  .replace(/[^a-zA-Z0-9-_]/g, '')
+                  .trim()}`}
+              >
                 <div className="accordion-item">
                   <h2 className="accordion-header">
                     <button
                       className="accordion-button collapsed"
                       type="button"
                       data-bs-toggle="collapse"
-                      data-bs-target={`#collapseTwo-${actor.id}`}
+                      data-bs-target={`#collapse-${actor.id}-${actor.character
+                        .toLowerCase()
+                        .replace(/[^a-zA-Z0-9-_]/g, '') // видаляє всі заборонені в селекторах символи
+                        .trim()}`}
                       aria-expanded="false"
-                      aria-controls={`collapseTwo-${actor.id}`}
+                      aria-controls={`collapse-${actor.id}-${actor.character
+                        .toLowerCase()
+                        .replace(/[^a-zA-Z0-9-_]/g, '')
+                        .trim()}`}
                       style={{ fontSize: '1.2rem' }}
                     >
                       {actor.name}
                     </button>
                   </h2>
                   <div
-                    id={`collapseTwo-${actor.id}`}
+                    id={`collapse-${actor.id}-${actor.character
+                      .toLowerCase()
+                      .replace(/[^a-zA-Z0-9-_]/g, '')
+                      .trim()}`}
                     className="accordion-collapse collapse"
                     data-bs-parent="#accordionExample"
                   >
