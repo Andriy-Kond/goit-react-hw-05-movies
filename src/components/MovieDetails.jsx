@@ -21,7 +21,7 @@ const MovieDetails = () => {
   useEffect(() => {
     getQuery(URL_QUERY_OPTIONS)
       .then(response => {
-        // console.log(response);
+        console.log('response', response);
         setCurrentMovieResp(response);
       })
       .catch(error => {
@@ -95,7 +95,9 @@ const MovieDetails = () => {
                 <p style={{ marginBottom: '5px' }}>
                   Original country:{' '}
                   <strong>
-                    {production_countries[0].iso_3166_1.toUpperCase()}
+                    {production_countries.length !== 0
+                      ? production_countries[0]?.iso_3166_1.toUpperCase()
+                      : 'No data'}
                   </strong>
                 </p>
 
