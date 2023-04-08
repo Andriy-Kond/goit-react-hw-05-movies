@@ -3,6 +3,7 @@ import { Link, useLocation, useSearchParams } from 'react-router-dom';
 import { getQuery } from 'services/fetch';
 import defaultImg from '../images/noPoster.webp';
 
+const URL_QUERY_OPTIONS = `search/movie`; // рядок запиту згідно з API
 // Пошук фільмів за ключовим словом
 const Movies = () => {
   // Стейти для помилки
@@ -14,7 +15,6 @@ const Movies = () => {
 
   // Стейти для фільтру Input
   const movieName = searchParams.get('query') ?? ''; // для запису у input.value
-  const URL_QUERY_OPTIONS = `search/movie`; // рядок запиту згідно з API
   const [foundMovies, setFoundMovies] = useState([]); // масив знайдених фільмів
 
   useEffect(() => {
@@ -28,7 +28,7 @@ const Movies = () => {
         setError(error);
         setStatus('rejected');
       });
-  }, [URL_QUERY_OPTIONS, searchParams]);
+  }, [searchParams]);
 
   // Для кнопки повернення з дочірніх елементів
   const location = useLocation();
@@ -36,7 +36,7 @@ const Movies = () => {
 
   // Встановлення в адресний рядок значення з Input.onChange
   const updateInputSearch = ({ target: { value } }) => {
-    const searchObj = value === '' ? {} : { query: value };
+    const searchObj = value === '' ? {} : { query: value }; // якщо у Input нічого не ввели, то пустий масив
     setSearchParams(searchObj);
   };
 

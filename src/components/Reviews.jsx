@@ -15,7 +15,7 @@ const Reviews = () => {
   const [status, setStatus] = useState('');
 
   const { currentMovie } = useParams();
-  const URL_QUERY_OPTIONS = `movie/${currentMovie}/reviews`;
+  const URL_QUERY_OPTIONS = `movie/${currentMovie}/reviews`; // рядок запиту згідно з API
   const [currentMovieReviews, setCurrentMovieReviews] = useState([]);
   // console.log('Reviews >> currentMovieReviews:', currentMovieReviews);
 
@@ -39,7 +39,9 @@ const Reviews = () => {
     <>
       <h3>THE REVIEWS</h3>
 
-      {currentMovieReviews.length !== 0 ? (
+      {currentMovieReviews.length === 0 ? (
+        'No any review yet'
+      ) : (
         <div className="accordion" id="accordionExample">
           {currentMovieReviews.map(
             ({ author_details, id, author, content, url }) => {
@@ -57,8 +59,8 @@ const Reviews = () => {
               } else {
                 currentSrc = defaultImg;
                 // currentSrc = 'images/noUser.jpg'; // ??? чомусь не завантажується такий шлях
+                // Довелось робити через  import defaultImg from '../images/noUser.jpg'
               }
-
               // console.log('currentSrc 2:', currentSrc);
 
               return (
@@ -137,8 +139,6 @@ const Reviews = () => {
             }
           )}
         </div>
-      ) : (
-        'No any review yet'
       )}
     </>
   );

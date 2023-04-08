@@ -2,11 +2,14 @@ import { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { getQuery } from 'services/fetch';
 
+// Домашня сторінка
+
 const media_type = 'movie';
 const time_window = 'week';
-const URL_QUERY_OPTIONS = `trending/${media_type}/${time_window}`;
+const URL_QUERY_OPTIONS = `trending/${media_type}/${time_window}`; // рядок запиту згідно з API
 
 const Home = () => {
+  // Стейти для помилки
   const [error, setError] = useState(null);
   const [status, setStatus] = useState('');
 

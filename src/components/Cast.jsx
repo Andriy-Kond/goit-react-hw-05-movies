@@ -1,12 +1,10 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { getQuery } from 'services/fetch';
-
 import defaultImg from '../images/noUser.jpg';
 
 // Інформація про акторський склад
 // Рендериться на сторінці MovieDetails.
-
 const Cast = () => {
   const [error, setError] = useState(null);
   const [status, setStatus] = useState('');
@@ -36,45 +34,36 @@ const Cast = () => {
     <>
       <h3>THE CAST</h3>
 
-      {currentMovieCast.length !== 0 ? (
+      {currentMovieCast.length === 0 ? (
+        'The cast is unknown :('
+      ) : (
         <div className="accordion" id="accordionExample">
           {currentMovieCast.map(
             ({ id, character, profile_path, name, original_name }) => {
+              // Такий key та id в акордеоні довелось робити через те, що трапляються випадки, коли актор у фільмі записаний два рази (помилка у базі бекенду).
+              // А ще один актор може зніматись у декількох ролях і тоді його ролі йдуть через косу лінію.
+              const char = character
+                .toLowerCase()
+                .replace(/[^a-zA-Z0-9-_]/g, '') // видаляє всі заборонені в селекторах символи
+                .trim();
               return (
-                // Такий key та id в акордеоні довелось робити через те, що трапляються випадки, коли актор у фільмі записаний два рази (помилка у базі бекенду).
-                // А ще один актор може зніматись у декількох ролях і тоді його робі йдуть через косі лінії.
-                <div
-                  key={`${id}-${character
-                    .toLowerCase()
-                    .toLowerCase()
-                    .replace(/[^a-zA-Z0-9-_]/g, '')
-                    .trim()}`}
-                >
+                <div key={`${id}-${char}`}>
                   <div className="accordion-item">
                     <h2 className="accordion-header">
                       <button
                         className="accordion-button collapsed"
                         type="button"
                         data-bs-toggle="collapse"
-                        data-bs-target={`#collapse-${id}-${character
-                          .toLowerCase()
-                          .replace(/[^a-zA-Z0-9-_]/g, '') // видаляє всі заборонені в селекторах символи
-                          .trim()}`}
+                        data-bs-target={`#collapse-${id}-${char}`}
                         aria-expanded="false"
-                        aria-controls={`collapse-${id}-${character
-                          .toLowerCase()
-                          .replace(/[^a-zA-Z0-9-_]/g, '')
-                          .trim()}`}
+                        aria-controls={`collapse-${id}-${char}`}
                         style={{ fontSize: '1.2rem' }}
                       >
                         {name}
                       </button>
                     </h2>
                     <div
-                      id={`collapse-${id}-${character
-                        .toLowerCase()
-                        .replace(/[^a-zA-Z0-9-_]/g, '')
-                        .trim()}`}
+                      id={`collapse-${id}-${char}`}
                       className="accordion-collapse collapse"
                       data-bs-parent="#accordionExample"
                     >
@@ -123,8 +112,6 @@ const Cast = () => {
             }
           )}
         </div>
-      ) : (
-        'The cast is unknown :('
       )}
     </>
   );

@@ -1,9 +1,7 @@
 import { Outlet } from 'react-router-dom';
-
 import { Suspense } from 'react';
 import { Container } from './Container';
 import { Header } from './Header';
-
 import Footer from './Footer';
 
 const Layout = () => {

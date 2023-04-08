@@ -1,27 +1,43 @@
 import { Suspense, useRef, useState } from 'react';
 import { useEffect } from 'react';
-import { Link, Outlet, useLocation, useParams } from 'react-router-dom';
+import {
+  Link,
+  NavLink,
+  Outlet,
+  useLocation,
+  useParams,
+} from 'react-router-dom';
 import { getQuery } from 'services/fetch';
+import styled from 'styled-components';
 import defaultImg from '../images/noPoster.webp';
+
+const StyledNavLink = styled(NavLink)`
+  color: black;
+
+  &.active {
+    color: orange;
+  }
+`;
 
 // Сторінка з детальною інформацією про фільм
 const MovieDetails = () => {
   const [error, setError] = useState(null);
   const [status, setStatus] = useState('');
 
-  const { currentMovie } = useParams(); // забираю з адресного рядку ID фільму
+  const { currentMovie } = useParams(); // забираю ID фільму з адресного рядку браузера
+  const URL_QUERY_OPTIONS = `movie/${currentMovie}`; // рядок запиту згідно з API
+  const [currentMovieResp, setCurrentMovieResp] = useState({});
 
   const location = useLocation();
   // console.log('MovieDetails >> location:', location);
-  const backLinkLocationRef = useRef(location.state ?? '/movies');
+
+  const backLinkLocationRef = useRef(location.state ?? '/movies'); // якщо немає location.state (відкрили в новій вкладці), то повернення буде на стартову сторінку
   // console.log('MovieDetails >> backLinkLocationRef:', backLinkLocationRef);
-  const URL_QUERY_OPTIONS = `movie/${currentMovie}`;
-  const [currentMovieResp, setCurrentMovieResp] = useState({});
 
   useEffect(() => {
     getQuery(URL_QUERY_OPTIONS)
       .then(response => {
-        console.log('response', response);
+        // console.log('response', response);
         setCurrentMovieResp(response);
       })
       .catch(error => {
@@ -31,7 +47,7 @@ const MovieDetails = () => {
   }, [URL_QUERY_OPTIONS]);
 
   if (status === 'rejected') {
-    console.log(error.message);
+    // console.log(error.message);
     return (
       <>
         <h2>{`Помилка: ${error.message}`}</h2>
@@ -53,7 +69,8 @@ const MovieDetails = () => {
     vote_count,
     homepage,
   } = currentMovieResp;
-  // Щоб не блимало спочатку заглушка-зображення роблю перевірку чи є об'єкт пустий
+
+  // Щоб заглушка-зображення не блимала при оновленні сторінки, рендерю лише коли об'єкт не пустий
   return (
     <>
       {Object.keys(currentMovieResp).length !== 0 && (
@@ -63,7 +80,7 @@ const MovieDetails = () => {
             <p>Повернутись назад</p>
           </Link>
 
-          <div className="card" style={{ width: '28rem' }}>
+          <div className="card" style={{ width: '38rem' }}>
             <img
               src={
                 poster_path
@@ -133,10 +150,10 @@ const MovieDetails = () => {
 
           <ul>
             <li>
-              <Link to="cast">to Cast the movie</Link>
+              <StyledNavLink to="cast">to movie's cast</StyledNavLink>
             </li>
             <li>
-              <Link to="reviews">to Review the movie</Link>
+              <StyledNavLink to="reviews">to movie's reviews</StyledNavLink>
             </li>
           </ul>
         </div>
