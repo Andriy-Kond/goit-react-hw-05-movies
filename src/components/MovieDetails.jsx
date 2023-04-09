@@ -37,7 +37,7 @@ const MovieDetails = () => {
   useEffect(() => {
     getQuery(URL_QUERY_OPTIONS)
       .then(response => {
-        // console.log('response', response);
+        console.log('response', response);
         setCurrentMovieResp(response);
       })
       .catch(error => {
@@ -68,6 +68,7 @@ const MovieDetails = () => {
     vote_average,
     vote_count,
     homepage,
+    genres,
   } = currentMovieResp;
 
   // Щоб заглушка-зображення не блимала при оновленні сторінки, рендерю лише коли об'єкт не пустий
@@ -104,6 +105,21 @@ const MovieDetails = () => {
                   flexDirection: 'column',
                 }}
               >
+                <p>
+                  Genres:{' '}
+                  <strong>
+                    {genres.length === 0 ? (
+                      <span>Unknown genres</span>
+                    ) : (
+                      genres
+                        .map(genre => {
+                          return `${genre.name}`;
+                        })
+                        .join(', ')
+                    )}
+                  </strong>
+                </p>
+
                 <h4>
                   <strong>Release date:</strong>
                   <p style={{ margin: 0 }}>{release_date}</p>
