@@ -37,7 +37,7 @@ const MovieDetails = () => {
   useEffect(() => {
     getQuery(URL_QUERY_OPTIONS)
       .then(response => {
-        console.log('response', response);
+        // console.log('response', response);
         setCurrentMovieResp(response);
       })
       .catch(error => {
