@@ -10,6 +10,7 @@ import {
 import { getQuery } from 'services/fetch';
 import styled from 'styled-components';
 import defaultImg from '../images/noPoster.webp';
+import { PreLoader } from './PreLoader';
 
 const StyledNavLink = styled(NavLink)`
   color: black;
@@ -174,13 +175,7 @@ const MovieDetails = () => {
           </ul>
         </div>
       )}
-      <Suspense
-        fallback={
-          <div className="spinner-grow" role="status">
-            <span className="visually-hidden">Loading...</span>
-          </div>
-        }
-      >
+      <Suspense fallback={<PreLoader />}>
         <Outlet />
       </Suspense>
     </>
